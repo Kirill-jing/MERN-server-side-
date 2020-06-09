@@ -1,5 +1,8 @@
 const Product = require('../models/Product')
 
+
+
+
 exports.postProduct = (req,res,next)=>{
     
    const name = req.body.name
@@ -26,4 +29,11 @@ exports.getProduct=(req,res,next)=>{
     Product.find().then(result=>{
         res.json({product:result})
     })
+}
+
+exports.productDetail=(req,res,next)=>{
+   let prodId= req.params.productId
+   Product.findById(prodId).then(result=>{
+       res.json({prod:result})
+   })
 }

@@ -8,4 +8,6 @@ router.get('/products',userController.getProduct )
 
 router.post('/post-product',userController.postProduct)
 
+router.get('/products/:productId', userController.productDetail)
+
 module.exports = router
