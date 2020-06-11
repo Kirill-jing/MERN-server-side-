@@ -7,7 +7,7 @@ exports.postProduct = (req,res,next)=>{
     
    const name = req.body.name
    const price = req.body.price
-   const image = req.body.image
+   const image = req.file.path
    const description = req.body.description
 
    let product = new Product({
@@ -36,4 +36,31 @@ exports.productDetail=(req,res,next)=>{
    Product.findById(prodId).then(result=>{
        res.json({prod:result})
    })
+}
+
+exports.getEditProduct=(req,res,next)=>{
+    let editing= req.query.edit
+    if(editing){
+let prodId = req.params.prodId
+Product.findById(prodId).then(result=>{
+    res.json({prod:result})
+})}
+}
+
+exports.postEditProduct=(req,res,nex)=>{
+let id = req.params.prodId
+const name = req.body.name
+const price = req.body.price
+// const image = req.body.image
+const description = req.body.description
+
+Product.findById(id).then(product=>{
+  product.description=description
+  product.name=name,
+  product.price=price,
+  product.image=image
+return product.save()
+
+})
+
 }
