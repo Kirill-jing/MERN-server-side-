@@ -10,10 +10,11 @@ router.post('/post-product',userController.postProduct)
 
 router.get('/products/:productId', userController.productDetail)
 
-router.get('/products/edit/:prodId' , userController.getEditProduct)
+// router.get('/products/edit/:prodId' , userController.getEditProduct)
 
-router.post('/products/edit', userController.postEditProduct)
+router.put('/products/edit/:prodId', userController.postEditProduct)
 
+router.delete('/delete-product/:prodId', userController.deleteProduct)
 
 
 module.exports = router
