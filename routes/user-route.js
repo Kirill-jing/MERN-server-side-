@@ -8,11 +8,11 @@ router.get('/products',userController.getProduct )
 
 router.post('/post-product',userController.postProduct)
 
-router.get('/products/:productId', userController.productDetail)
+router.get('/productDetail/:productId', userController.productDetail)
 
-// router.get('/products/edit/:prodId' , userController.getEditProduct)
+router.get('/products/:productId', userController.productPrep)
 
-router.put('/products/edit/:prodId', userController.postEditProduct)
+router.put('/products/edit/:prodId?', userController.postEditProduct)
 
 router.delete('/delete-product/:prodId', userController.deleteProduct)
 
