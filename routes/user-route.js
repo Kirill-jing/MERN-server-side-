@@ -2,9 +2,10 @@ const express = require('express')
 
 const router = express.Router()
 const userController = require('../controllers/products')
+const isAuth=require('../middleware/is-auth')
 
 
-router.get('/products',userController.getProduct )
+router.get('/products',isAuth, userController.getProduct )
 
 router.post('/post-product',userController.postProduct)
 
