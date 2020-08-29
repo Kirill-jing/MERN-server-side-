@@ -18,7 +18,8 @@ const productSchema = new Schema({
         type:String,
         require:true
     },
-    // creator: { type: mongoose.Types.ObjectId, required: true, ref: 'User'}
+
+    creator: { type: Schema.Types.ObjectId,required:true, ref: 'User'}
       
 
 })

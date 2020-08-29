@@ -7,7 +7,7 @@ const isAuth=require('../middleware/is-auth')
 
 router.get('/products',isAuth, userController.getProduct )
 
-router.post('/post-product',userController.postProduct)
+router.post('/post-product',isAuth, userController.postProduct)
 
 router.get('/productDetail/:productId', userController.productDetail)
 
