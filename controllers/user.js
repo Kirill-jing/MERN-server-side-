@@ -25,7 +25,6 @@ exports.signup=(req,res,next)=>{
         res.status(201).json({message:'user created',userId:result._id})
     })
     .catch(err=>console.log(err))
-
 }
 
 exports.login=(req,res,next)=>{
@@ -38,7 +37,6 @@ exports.login=(req,res,next)=>{
           return  res.status(401).json({
                 message:'no user found'
             })
-
         }
         loadedUser=user
         console.log(user.password)
@@ -58,8 +56,7 @@ exports.login=(req,res,next)=>{
        res.status(200).json({
             token:token,id:loadedUser._id.toString()
         })
-    }).catch(err=>console.log(err)
-    
+    }).catch(err=>console.log(err) 
     )
 }
 

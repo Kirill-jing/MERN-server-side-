@@ -5,7 +5,9 @@ const userController = require('../controllers/products')
 const isAuth=require('../middleware/is-auth')
 
 
-router.get('/products',isAuth, userController.getProduct )
+router.get('/products',isAuth, userController.getMyProduct )
+
+router.get('/all-products',isAuth, userController.getAllProduct )
 
 router.post('/post-product',isAuth, userController.postProduct)
 
@@ -13,7 +15,7 @@ router.get('/productDetail/:productId', userController.productDetail)
 
 router.get('/products/:productId', userController.productPrep)
 
-router.put('/products/edit/:prodId?', userController.postEditProduct)
+router.put('/products/edit/:prodId?',isAuth, userController.postEditProduct)
 
 router.delete('/delete-product/:prodId', userController.deleteProduct)
 

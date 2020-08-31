@@ -8,7 +8,7 @@ exports.postProduct =(req,res,next)=>{
     const description = req.body.description
     const image = req.file.path
     let creator;
-  
+  3
     let prod = new Product({
         price:price,
         description:description,
@@ -27,13 +27,29 @@ exports.postProduct =(req,res,next)=>{
   }
     
 
-exports.getProduct = (req,res,next)=>{
+exports.getMyProduct = (req,res,next)=>{
     Product.find().then(result=>{
+return result.filter((el,i)=>{
+return el.creator==req.userId
+})}
+    ).then(result=>{
+        res.json({product:result})
+    })
+}
+
+exports.getAllProduct = (req,res,next)=>{
+    Product.find().then(result=>{
+return result.filter((el,i)=>{
+  
+return el.creator!=req.userId
+})}
+    ).then(result=>{
         res.json({product:result})
     })
 }
 
 exports.productDetail=(req,res,next)=>{
+
     let prodId = req.params.productId
     Product.findById(prodId).then(result=>{
         res.json({prod:result})
@@ -47,15 +63,22 @@ Product.findByIdAndRemove(prodId).then(res=>{
     }
 
 exports.postEditProduct=(req,res,next)=>{
-
-    let id=req.params.prodId
     const name = req.body.name
     const price = req.body.price
     const image = req.file.path
     const description = req.body.description
-
+    let id=req.params.prodId
+Product.findById(id).then(result=>{
+    if(result.creator!=req.userId){
+        return  res.status(401).json({
+            message:'no user found'
+        })
+    }
    Product.findByIdAndUpdate(id,{name:name,price:price,image:image,description:description})
-   .then(res=>console.log(res))
+    .then(res=>console.log(res))
+    })
+  
+
     
    }
    exports.productPrep=(req,res,next)=>{

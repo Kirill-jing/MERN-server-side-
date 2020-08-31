@@ -3,7 +3,7 @@ const jwt =require('jsonwebtoken')
 module.exports=(req,res,next)=>{
 
     const  token= req.get('Authorization').split(' ')[1]
-
+console.log(token)
     let decToken
   
     try{
@@ -20,7 +20,7 @@ module.exports=(req,res,next)=>{
             message:'unauthorized'
         })
     }
-   console.log(decToken.id)
+
     req.userId=decToken.id
 
     next()
