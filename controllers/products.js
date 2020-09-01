@@ -8,7 +8,6 @@ exports.postProduct =(req,res,next)=>{
     const description = req.body.description
     const image = req.file.path
     let creator;
-  3
     let prod = new Product({
         price:price,
         description:description,
@@ -25,9 +24,22 @@ exports.postProduct =(req,res,next)=>{
    }).then( result=>{
        res.status(201).json({prod:prod,creator:{_id:creator._id,name:creator.name}}).catch(err=> console.log(err))})
   }
-    
+
+
+exports.AddToCart=(req,res,nex)=>{
+    let id=req.params.prodId
+    Product.findById(id).then(product=>{
+        return User.findById(req.userId).then(user=>{
+            user.cart.push(product)
+            return user.save()
+        })
+    }).then(rep=>console.log(rep))
+}
 
 exports.getMyProduct = (req,res,next)=>{
+   User.findById(req.userId).then(resul=>{
+       console.log(resul)
+   })
     Product.find().then(result=>{
 return result.filter((el,i)=>{
 return el.creator==req.userId
@@ -77,9 +89,6 @@ Product.findById(id).then(result=>{
    Product.findByIdAndUpdate(id,{name:name,price:price,image:image,description:description})
     .then(res=>console.log(res))
     })
-  
-
-    
    }
    exports.productPrep=(req,res,next)=>{
     let prodId = req.params.productId

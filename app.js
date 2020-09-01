@@ -8,8 +8,6 @@
   const path = require('path')
 const { ok } = require('assert')
 
-
-
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
@@ -28,7 +26,6 @@ const { ok } = require('assert')
     filename:(req,file,cb)=>{
       cb(null, file.originalname)
     }
-
   })
   const fileFilter=(req,file,cb)=>{
    if(file.mimetype ==='image/png'||file.mimetype==='image/jpg'||file.mimetype==='image/jpeg'){
@@ -45,8 +42,6 @@ app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('image'))
 
 app.use('/user',userRoutes)
 app.use('/auth',authRoutes)
-
-
 
   mongoose
   .connect(
