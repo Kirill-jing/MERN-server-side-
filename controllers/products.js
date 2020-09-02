@@ -36,6 +36,12 @@ exports.AddToCart=(req,res,nex)=>{
     }).then(rep=>console.log(rep))
 }
 
+exports.getCart=(req,res,next)=>{
+    User.findById(req.userId).then(result=>{
+     res.json({user:result.cart})
+    })
+}
+
 exports.getMyProduct = (req,res,next)=>{
    User.findById(req.userId).then(resul=>{
        console.log(resul)

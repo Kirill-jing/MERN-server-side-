@@ -9,6 +9,8 @@ router.get('/products',isAuth, userController.getMyProduct )
 
 router.get('/all-products',isAuth, userController.getAllProduct )
 
+router.get('/get-cart',isAuth, userController.getCart )
+
 router.post('/post-product',isAuth, userController.postProduct)
 
 router.post('/add-cart/:prodId',isAuth, userController.AddToCart)
