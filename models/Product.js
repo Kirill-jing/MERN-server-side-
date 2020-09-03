@@ -18,8 +18,19 @@ const productSchema = new Schema({
         type:String,
         require:true
     },
-
-    creator: { type: Schema.Types.ObjectId,required:true, ref: 'User'}
+    amount:{
+        type:Number,
+        required:true
+    },
+    yourAmount:{
+        type:Number,
+        required:true
+    },
+    priceYourAmount:{
+        type:Number,
+        required:true
+    },
+    creator: { type: Schema.Types.ObjectId,required:true, ref:'User'}
       
 
 })

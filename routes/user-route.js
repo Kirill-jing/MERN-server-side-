@@ -13,6 +13,8 @@ router.get('/get-cart',isAuth, userController.getCart )
 
 router.post('/post-product',isAuth, userController.postProduct)
 
+router.post('/delete-cart/:prodId',isAuth, userController.deleteCartProduct)
+
 router.post('/add-cart/:prodId',isAuth, userController.AddToCart)
 
 router.get('/productDetail/:productId', userController.productDetail)
