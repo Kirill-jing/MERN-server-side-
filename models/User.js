@@ -16,6 +16,10 @@ const userSchema = new Schema({
         type: String,
         required: true
       },
+      phone:{
+          type:String,
+          required:true
+      },
       cart:[],
       products:[{
           type:Schema.Types.ObjectId,
