@@ -68,10 +68,12 @@ exports.AddToCart=(req,res,nex)=>{
 }
 
 exports.getCart=(req,res,next)=>{
+if(req.userId){
     User.findById(req.userId).then(result=>{
-        console.log(result.cart)
      res.json({user:result.cart})
-    })
+    })}else{
+        res.json({message:'unauthorized'})
+    }
 }
 
 exports.getMyProduct = (req,res,next)=>{
@@ -87,6 +89,7 @@ return el.creator==req.userId
     })}
 
 exports.getAllProduct = (req,res,next)=>{
+    if(req.userId){
     Product.find().then(result=>{
 return result.filter((el,i)=>{
 return el.creator!=req.userId
@@ -94,6 +97,12 @@ return el.creator!=req.userId
     ).then(result=>{
         res.json({product:result})
     })
+}else{
+    Product.find().then(result=>{
+                res.json({product:result})
+            }) 
+}
+
 }
 
 exports.productDetail=(req,res,next)=>{

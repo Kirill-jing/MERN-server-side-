@@ -3,11 +3,11 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/products')
 const isAuth=require('../middleware/is-auth')
-
+const allprods =require('../middleware/all-prods')
 
 router.get('/products',isAuth, userController.getMyProduct )
 
-router.get('/all-products',isAuth, userController.getAllProduct )
+router.get('/all-products',allprods, userController.getAllProduct )
 
 router.get('/get-cart',isAuth, userController.getCart )
 
