@@ -68,7 +68,7 @@ exports.AddToCart=(req,res,nex)=>{
 }
 
 exports.getCart=(req,res,next)=>{
-if(req.userId){
+if(req.userId!==undefined){
     User.findById(req.userId).then(result=>{
      res.json({user:result.cart})
     })}else{
@@ -89,7 +89,7 @@ return el.creator==req.userId
     })}
 
 exports.getAllProduct = (req,res,next)=>{
-    if(req.userId){
+    if(req.userId!='undefined'||'null'){
     Product.find().then(result=>{
 return result.filter((el,i)=>{
 return el.creator!=req.userId
@@ -97,7 +97,7 @@ return el.creator!=req.userId
     ).then(result=>{
         res.json({product:result})
     })
-}else{
+}else if(req.userId=='undefined'||'null'){
     Product.find().then(result=>{
                 res.json({product:result})
             }) 

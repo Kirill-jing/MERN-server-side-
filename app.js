@@ -7,6 +7,7 @@
   const multer = require('multer')
   const path = require('path')
 const { ok } = require('assert')
+require('dotenv/config')
 
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -45,7 +46,7 @@ app.use('/auth',authRoutes)
 
   mongoose
   .connect(
-    'mongodb+srv://prima:5555555555@cluster0-sj8wi.mongodb.net/mern?retryWrites=true&w=majority',
+    process.env.DB_CONNECTION,
     { 
       useCreateIndex: true,
     useNewUrlParser: true 
