@@ -18,6 +18,18 @@ const productSchema = new Schema({
         type:String,
         require:true
     },
+    cap:{
+        type:Number,
+        required:true
+    },
+    type:{
+        type:String,
+        required:true
+    },
+    power:{
+        type:Number,
+        required:true
+    },
     amount:{
         type:Number,
         required:true

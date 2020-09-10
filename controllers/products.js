@@ -11,6 +11,9 @@ exports.postProduct =(req,res,next)=>{
     const priceYourAmount = req.body.priceYourAmount
     const yourAmount = req.body.yourAmount
     const image = req.file.path
+    const cap =req.body.cap
+    const type=req.body.type
+    const power = req.body.power
     let creator;
     let prod = new Product({
         price:price,
@@ -20,7 +23,10 @@ exports.postProduct =(req,res,next)=>{
         amount:amount,
         yourAmount:yourAmount,
         priceYourAmount:priceYourAmount,
-        creator:req.userId
+        creator:req.userId,
+        cap:cap,
+        type:type,
+        power:power
     })
     prod.save().then(result=>{
        return User.findById(req.userId)})
@@ -49,6 +55,9 @@ exports.AddToCart=(req,res,nex)=>{
     const priceYourAmount = req.body.priceYourAmount
     const yourAmount = req.body.yourAmount
     const image = req.body.image
+    const cap =req.body.cap
+    const type=req.body.type
+    const power = req.body.power
 
     let prod = new Product({
         price:price,
@@ -58,8 +67,12 @@ exports.AddToCart=(req,res,nex)=>{
         amount:amount,
         yourAmount:yourAmount,
         priceYourAmount:priceYourAmount,
-        creator:req.userId
+        creator:req.userId,
+        cap:cap,
+        type:type,
+        power:power   
     })
+
     User.findById(req.userId).then(result=>{
         result.cart.push(prod)
         return result.save()
@@ -101,9 +114,7 @@ return el.creator!=req.userId
     Product.find().then(result=>{
                 res.json({product:result})
             }) 
-}
-
-}
+}}
 
 exports.productDetail=(req,res,next)=>{
     let prodId = req.params.productId
@@ -142,13 +153,26 @@ exports.postEditProduct=(req,res,next)=>{
     const yourAmount = req.body.yourAmount
     const description = req.body.description
     let id=req.params.prodId
+    const cap =req.body.cap
+    const type=req.body.type
+    const power = req.body.power
 Product.findById(id).then(result=>{
     if(result.creator!=req.userId){
         return  res.status(401).json({
             message:'no user found'
         })
     }
-   Product.findByIdAndUpdate(id,{amount:amount,name:name,price:price,image:image,description:description,priceYourAmount:priceYourAmount,yourAmount:yourAmount})
+   Product.findByIdAndUpdate(id,
+    {amount:amount,
+    name:name,
+    cap:cap,
+    type:type,
+    power:power,
+    price:price,
+    image:image,
+    description:description,
+    priceYourAmount:priceYourAmount,
+    yourAmount:yourAmount})
     .then(res=>console.log(res))
     })
    }
@@ -157,3 +181,14 @@ Product.findById(id).then(result=>{
     Product.findById(prodId).then(result=>{
         res.json({prod:result})
     })}
+
+    exports.searchProduct=(req,res,nex)=>{
+        let cap= req.query.cap
+        let type = req.query.type
+        let power = req.query.power
+        console.log(type)
+        Product.find({power:power,cap:cap,type:type}).then(result=>{
+            console.log(result)
+           res.json({prods:result})
+        })
+    }

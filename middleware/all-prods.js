@@ -9,9 +9,6 @@ module.exports=(req,res,next)=>{
     decToken=jwt.verify(token,'secret')
     req.userId=decToken.id
 }
- 
-
-
 
     console.log(req.userId)
     next()

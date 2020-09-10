@@ -25,5 +25,7 @@ router.put('/products/edit/:prodId?',isAuth, userController.postEditProduct)
 
 router.delete('/delete-product/:prodId', userController.deleteProduct)
 
+router.get('/search', userController.searchProduct)
+
 
 module.exports = router
