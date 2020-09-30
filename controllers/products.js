@@ -1,7 +1,6 @@
 const Product = require("../models/Product");
 const url = require("url");
 const User = require("../models/User");
-const { use } = require("passport");
 
 exports.postProduct = (req, res, next) => {
   const price = req.body.price;
@@ -56,7 +55,6 @@ exports.AddToCart = (req, res, nex) => {
   const cap = req.body.cap;
   const type = req.body.type;
   const power = req.body.power;
-
   let prod = new Product({
     price: price,
     description: description,
@@ -70,7 +68,6 @@ exports.AddToCart = (req, res, nex) => {
     type: type,
     power: power,
   });
-
   User.findById(req.userId)
     .then((result) => {
       result.cart.push(prod);
@@ -123,16 +120,15 @@ exports.getAllProduct = (req, res, next) => {
 };
 
 exports.productDetail = (req, res, next) => {
-  let prodId = req.params.productId;
+  const prodId = req.params.productId;
   Product.findById(prodId).then((result) => {
     res.json({ prod: result });
   });
 };
 
 exports.deleteProduct = (req, res, next) => {
-  let prodId = req.params.prodId;
-  let creator = req.userId;
-
+  const prodId = req.params.prodId;
+  const creator = req.userId;
   Product.findById(prodId).then((res) => {
     if (res.creator != creator) {
       return;
@@ -146,7 +142,6 @@ exports.deleteCartProduct = (req, res, next) => {
   let prodId = req.params.prodId;
   User.findById(req.userId)
     .then((user) => {
-      console.log(user.cart);
       user.cart.forEach((item, i, arr) => {
         if (item._id == prodId) {
           arr.splice(i, 1);
@@ -167,7 +162,7 @@ exports.postEditProduct = (req, res, next) => {
   const priceYourAmount = req.body.priceYourAmount;
   const yourAmount = req.body.yourAmount;
   const description = req.body.description;
-  let id = req.params.prodId;
+  const id = req.params.prodId;
   const cap = req.body.cap;
   const type = req.body.type;
   const power = req.body.power;
@@ -192,19 +187,17 @@ exports.postEditProduct = (req, res, next) => {
   });
 };
 exports.productPrep = (req, res, next) => {
-  let prodId = req.params.productId;
+  const prodId = req.params.productId;
   Product.findById(prodId).then((result) => {
     res.json({ prod: result });
   });
 };
 
 exports.searchProduct = (req, res, nex) => {
-  let cap = req.query.cap;
-  let type = req.query.type;
-  let power = req.query.power;
-  console.log(type);
+  const cap = req.query.cap;
+  const type = req.query.type;
+  const power = req.query.power;
   Product.find({ power: power, cap: cap, type: type }).then((result) => {
-    console.log(result);
     res.json({ prods: result });
   });
 };

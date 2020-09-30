@@ -4,10 +4,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.signup = (req, res, next) => {
-  let name = req.body.name;
-  let email = req.body.email;
-  let password = req.body.password;
-  let phone = req.body.phone;
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.password;
+  const phone = req.body.phone;
 
   bcrypt
     .hash(password, 12)
